@@ -1,5 +1,5 @@
 # Noise2Sim -- Similarity-based Self-Learning for Image Denoising
-By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [Ge Wang](https://www.linkedin.com/in/ge-wang-axis/)
+Under review.
 
 <tr>
 <td><img  height="360" src="./figs/training_samples.png"></td>
