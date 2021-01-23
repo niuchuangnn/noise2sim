@@ -1,10 +1,10 @@
 target_type = "random_noise-mapping"
-model_name = "bsd400_unet2_{}_ps3-ns8-gpu1".format(target_type)
+model_name = "bsd400_unet2_{}_ps3-ns8-gpu8".format(target_type)
 model_weight = None
 workers = 4
 epochs = 5000
 start_epoch = 0
-batch_size = 128
+batch_size = 256
 crop_size = 128
 num_channel = 1
 num_sim = 8
