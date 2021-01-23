@@ -6,7 +6,7 @@ By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [
 </tr>
 
 ## Introduction
-This project is the Pytorch implementation of the [paper](https://arxiv.org/abs/2011.03384).
+This project is the Pytorch implementation of the [paper](https://arxiv.org/abs/2011.03384), and was developed based on our [clustering project](https://github.com/niuchuangnn/GATCluster).
 
 ## Installation
 Assuming [Anaconda](https://www.anaconda.com/) with python 3.6, the required packages for this project can be installed as:
