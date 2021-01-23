@@ -2,8 +2,7 @@
 By [Chuang Niu](https://scholar.google.com/citations?user=aoud5NgAAAAJ&hl) and [Ge Wang](https://www.linkedin.com/in/ge-wang-axis/)
 
 <tr>
-<td><img  height="120" src="./figs/training_samples.png"></td>
-<td><img  height="120" src="./figs/generation_similarity.png"></td>
+<td><img  height="360" src="./figs/training_samples.png"></td>
 </tr>
 
 ## Introduction
