@@ -39,7 +39,7 @@ Run on 8 GPUs:
 python ./tools/train_dist.py --config-file ./configs/stl10/bsd400_unet2_ps3_ns8_gpu8.py
 ```
 
-The results in paper were obtained using 8 GPUs, you can obtain the similar results using 1 GPU.
+The results in paper were obtained using 8 GPUs, you can obtain similar results with 1 GPU.
 
 ## Citation
 
