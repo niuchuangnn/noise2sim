@@ -30,6 +30,11 @@ Download BSD68 test dataset
 ```shell script
 python ./tools/download_bsd68_noise2void.py
 ```
+Prepare dataset:
+```shell script
+python ./tools/prepare_bsd400_lmdb.py
+```
+
 Run on 1 GPU:
 ```shell script
 python ./tools/train_dist.py --config-file ./configs/stl10/bsd400_unet2_ps3_ns8_gpu1.py
