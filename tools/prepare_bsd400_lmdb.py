@@ -8,6 +8,9 @@ from tqdm import tqdm
 from imageio import imread
 import shutil
 import pickle
+import sys
+sys.path.insert(0, './')
+
 from denoiser.config import Config
 from denoiser.modeling.architectures import build_architecture
 
