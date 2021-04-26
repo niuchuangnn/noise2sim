@@ -1,5 +1,5 @@
 # Noise2Sim -- Similarity-based Self-Learning for Image Denoising
-Under review. (In Updating)
+Under review. (**In Updating**)
 
 <tr>
 <td><img  height="360" src="./figs/training_samples.png"></td>
