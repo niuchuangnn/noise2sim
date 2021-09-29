@@ -1,12 +1,18 @@
-# Noise2Sim -- Similarity-based Self-Learning for Image Denoising
+# Suppression of Independent and Correlated Noise with Similarity-based Unsupervised Deep Learning
 Under review. (**In Updating**)
 
-<tr>
-<td><img  height="360" src="./figs/training_samples.png"></td>
-</tr>
+[comment]: <> (<tr>)
+
+[comment]: <> (<td><img  height="360" src="./figs/training_samples.png"></td>)
+
+[comment]: <> (</tr>)
 
 ## Introduction
-This project is the Pytorch implementation of the [paper](https://arxiv.org/abs/2011.03384), and was developed based on our [clustering project](https://github.com/niuchuangnn/GATCluster).
+This is a general similarity-based unsupervised deep denoising approach to suppress not only independent but also correlated image noise.
+Theoretical analysis proves the equivalent effectiveness of this unsupervised approach to the supervised counterpart.
+This project shows several application cases, including denoising natural, microscopic, low-dose CT and photon-counting micro-CT images.
+This general approach can be applied to many other fields by constructing the similar training samples based on the domain-specific prior.
+
 
 ## Installation
 Assuming [Anaconda](https://www.anaconda.com/) with python 3.6, the required packages for this project can be installed as:
