@@ -32,7 +32,7 @@ cd noise2sim
 
 ### Natural Images
 
-Download BSD68 test dataset
+Download BSD68 test dataset [here](https://drive.google.com/drive/folders/1b_RvBwIr9yLg8yPWb0BHYmWiOEVUvG4K?usp=sharing).
 
 ```shell script
 python ./tools/download_bsd68_noise2void.py
