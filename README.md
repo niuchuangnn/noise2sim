@@ -28,8 +28,9 @@ git clone https://github.com/niuchuangnn/noise2sim.git
 cd noise2sim
 ```
 
-## Run
-To train the model, simply run the following commands.
+## Applications
+
+### Natural Images
 
 Download BSD68 test dataset
 
@@ -51,8 +52,14 @@ python ./tools/train_dist.py --config-file ./configs/bsd400_unet2_ps3_ns8_gpu8.p
 ```
 The results in paper were obtained using 8 GPUs, you can obtain similar results with 1 GPU.
 
-## TODO
-More experiments.
+### Low-dose CT Images
+
+
+### Spectral CT Images
+
+
+### Microscopy Images
+
 
 ## Citation
 
