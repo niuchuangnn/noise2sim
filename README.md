@@ -55,9 +55,8 @@ The results in paper were obtained using 8 GPUs, you can obtain similar results 
 ### Low-dose CT Images
 The low-dose CT dataset can be obtained at [Low Dose CT Grand Challenge](https://www.aapm.org/grandchallenge/lowdosect/).
 
-
 ### Spectral CT Images
-The photon-counting spectral micro-CT data can be obtained [here]().
+The photon-counting spectral micro-CT data can be obtained [here](https://drive.google.com/file/d/1UaS6YdPZ_M0opxpIaUXjbydNq1IlVDiG/view?usp=sharing).
 
 ### Microscopy Images
 The microscopy image can be obtained [here](http://data.celltrackingchallenge.net/training-datasets/Fluo-N2DH-GOWT1.zip).
