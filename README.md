@@ -53,12 +53,14 @@ python ./tools/train_dist.py --config-file ./configs/bsd400_unet2_ps3_ns8_gpu8.p
 The results in paper were obtained using 8 GPUs, you can obtain similar results with 1 GPU.
 
 ### Low-dose CT Images
+The low-dose CT dataset can be obtained at [Low Dose CT Grand Challenge](www.aapm.org/grandchallenge/lowdosect/).
 
 
 ### Spectral CT Images
-
+The photon-counting spectral micro-CT data can be obtained [here]().
 
 ### Microscopy Images
+The microscopy image can be obtained [here](http://data.celltrackingchallenge.net/training-datasets/Fluo-N2DH-GOWT1.zip).
 
 
 ## Citation
