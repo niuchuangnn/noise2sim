@@ -1,6 +1,7 @@
 from denoiser.data.datasets.data_lmdb import LMDB
 from denoiser.data.datasets.bsd_npy import BSDNPY
 from denoiser.data.datasets.data_mayo import Mayo
+from denoiser.data.datasets.data_SCT import SCT
 
 
 def build_dataset(data_cfg_ori):
@@ -14,6 +15,8 @@ def build_dataset(data_cfg_ori):
         dataset = BSDNPY(**data_cfg)
     elif data_type == "mayo":
         dataset = Mayo(**data_cfg)
+    elif data_type == "sct":
+        dataset = SCT(**data_cfg)
     else:
         assert TypeError
 

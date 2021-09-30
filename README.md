@@ -19,7 +19,8 @@ Assuming [Anaconda](https://www.anaconda.com/) with python 3.6, the required pac
 ```shell script
 conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=11.0 -c pytorch  # install pytorch
 conda install -c pytorch faiss-gpu  # install faiss-gpu
-conda install -c conda-forge python-lmdb tqdm imageio addict opencv matplotlib
+conda install -c conda-forge python-lmdb tqdm imageio addict opencv matplotlib pydicom scipy
+pip install mat73
 ```
 Then, clone this repo
 ```shell script
@@ -53,7 +54,7 @@ Run on 8 GPUs:
 ```shell script
 python ./tools/train_dist.py --config-file ./configs/bsd400_unet2_ps3_ns8_gpu8.py
 ```
-The results in paper were obtained using 8 GPUs, you can obtain similar results with 1 GPU.
+The results in the paper were obtained using 8 GPUs, you can obtain similar results with 1 GPU.
 
 ### Low-dose CT Images
 The low-dose CT dataset can be obtained at [Low Dose CT Grand Challenge](https://www.aapm.org/grandchallenge/lowdosect/).

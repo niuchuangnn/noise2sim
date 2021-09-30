@@ -34,7 +34,7 @@ model_names = sorted(name for name in models.__dict__
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument(
     "--config-file",
-    default="./configs/mayo_unet2.py",
+    default="./configs/sct_unet2.py",
     metavar="FILE",
     help="path to config file",
     type=str,
@@ -193,8 +193,11 @@ def main_worker(gpu, ngpus_per_node, cfg):
         train_dataset, batch_size=cfg.batch_size, shuffle=(train_sampler is None),
         num_workers=cfg.workers, pin_memory=True, sampler=train_sampler, drop_last=True)
 
-    dataset_val = build_dataset(cfg.data_test)
-    val_loader = torch.utils.data.DataLoader(dataset_val, batch_size=1, shuffle=False, num_workers=1)
+    if cfg.data_test is not None:
+        dataset_val = build_dataset(cfg.data_test)
+        val_loader = torch.utils.data.DataLoader(dataset_val, batch_size=1, shuffle=False, num_workers=1)
+    else:
+        val_loader = None
 
     psnr_best = 0
     best_epoch = 0
@@ -226,40 +229,26 @@ def main_worker(gpu, ngpus_per_node, cfg):
                     'state_dict': model.state_dict(),
                     'optimizer': optimizer.state_dict(),
                 }, is_best=False, filename='{}/checkpoint_final.pth.tar'.format(cfg.results.output_dir))
-            model.eval()
-            psnrs = []
-            for _, (images, images_clean, std, idx) in enumerate(val_loader):
-                inputs = images.to(cfg.gpu)
-                with torch.no_grad():
-                    outputs = model(inputs)
 
-                images_clean = images_clean.to(cfg.gpu)
-                psnr = calculate_psnr(outputs, images_clean)
-                psnrs.append(psnr.cpu().numpy())
+            if val_loader is not None:
+                model.eval()
+                psnrs = []
+                for _, (images, images_clean, std, idx) in enumerate(val_loader):
+                    inputs = images.to(cfg.gpu)
+                    with torch.no_grad():
+                        outputs = model(inputs)
 
-                # if idx == 0:
-                #     # save images.
-                #     if len(images.shape) > 4:
-                #         img_noise = images[0][0].cpu().numpy().transpose([1, 2, 0])
-                #     else:
-                #         img_noise = images[0].cpu().numpy().transpose([1, 2, 0])
-                #
-                #     img_pred = outputs[0].detach().cpu().numpy().transpose([1, 2, 0])
-                #     img_clean = images_clean[0].cpu().numpy().transpose([1, 2, 0])
-                #     base_folder = "{}/{}".format(cfg.results.output_dir, epoch)
-                #
-                #     imwrite("{}_noise.png".format(base_folder), img_noise)
-                #     imwrite("{}_pred.png".format(base_folder), img_pred)
-                #     imwrite("{}_clean.png".format(base_folder), img_clean)
+                    images_clean = images_clean.to(cfg.gpu)
+                    psnr = calculate_psnr(outputs, images_clean)
+                    psnrs.append(psnr.cpu().numpy())
 
-            psnr_mean = np.array(psnrs).mean()
-            # writer.add_scalar('PSNR/test', psnr_mean, epoch)
-            if psnr_best < psnr_mean:
-                psnr_best = psnr_mean
-                best_epoch = epoch
-            print(psnr_mean)
-            print("Best PSNR: {}, epoch: {}".format(psnr_best, best_epoch))
-            model.train()
+                psnr_mean = np.array(psnrs).mean()
+                if psnr_best < psnr_mean:
+                    psnr_best = psnr_mean
+                    best_epoch = epoch
+                print(psnr_mean)
+                print("Best PSNR: {}, epoch: {}".format(psnr_best, best_epoch))
+                model.train()
 
 
 def train(train_loader, model, optimizer, epoch, cfg):
