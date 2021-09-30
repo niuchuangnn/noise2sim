@@ -90,7 +90,7 @@ python ./tools/train_dist.py --config-file ./configs/sct_unet2.py
 ```
 
 ### Microscopy Images
-The microscopy image can be obtained [here](http://data.celltrackingchallenge.net/training-datasets/Fluo-N2DH-GOWT1.zip).
+The microscopy image can be obtained [here](http://data.celltrackingchallenge.net/challenge-datasets/Fluo-N2DL-HeLa.zip).
 
 
 ## Citation
