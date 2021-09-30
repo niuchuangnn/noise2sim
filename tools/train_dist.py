@@ -25,8 +25,6 @@ from denoiser.solver import make_lr_scheduler, make_optimizer
 from denoiser.data.bulid_data import build_dataset
 from denoiser.utils.miscellaneous import mkdir, save_config
 import numpy as np
-from imageio import imwrite
-from torch.utils.tensorboard import SummaryWriter
 
 
 model_names = sorted(name for name in models.__dict__
@@ -198,7 +196,6 @@ def main_worker(gpu, ngpus_per_node, cfg):
     dataset_val = build_dataset(cfg.data_test)
     val_loader = torch.utils.data.DataLoader(dataset_val, batch_size=1, shuffle=False, num_workers=1)
 
-    writer = SummaryWriter(log_dir="{}/log_{}".format(cfg.results.output_dir, cfg.rank))
     psnr_best = 0
     best_epoch = 0
     for epoch in range(cfg.start_epoch, cfg.epochs):
@@ -209,7 +206,7 @@ def main_worker(gpu, ngpus_per_node, cfg):
             scheduler.step()
 
         # train for one epoch
-        train(train_loader, model, optimizer, epoch, cfg, writer)
+        train(train_loader, model, optimizer, epoch, cfg)
 
         if not cfg.multiprocessing_distributed or (cfg.multiprocessing_distributed
                 and cfg.rank % ngpus_per_node == 0 and (epoch+1) % cfg.test_freq == 0):
@@ -255,9 +252,8 @@ def main_worker(gpu, ngpus_per_node, cfg):
                 #     imwrite("{}_pred.png".format(base_folder), img_pred)
                 #     imwrite("{}_clean.png".format(base_folder), img_clean)
 
-            # print(psnrs)
             psnr_mean = np.array(psnrs).mean()
-            writer.add_scalar('PSNR/test', psnr_mean, epoch)
+            # writer.add_scalar('PSNR/test', psnr_mean, epoch)
             if psnr_best < psnr_mean:
                 psnr_best = psnr_mean
                 best_epoch = epoch
@@ -266,7 +262,7 @@ def main_worker(gpu, ngpus_per_node, cfg):
             model.train()
 
 
-def train(train_loader, model, optimizer, epoch, cfg, writer):
+def train(train_loader, model, optimizer, epoch, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -308,8 +304,6 @@ def train(train_loader, model, optimizer, epoch, cfg, writer):
         # measure elapsed time
         batch_time.update(time.time() - end)
         end = time.time()
-
-        writer.add_scalar('Loss/train', loss.item(), epoch * len(train_loader) + i)
 
         if i % cfg.print_freq == 0:
             progress.display(i)
