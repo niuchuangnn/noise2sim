@@ -34,7 +34,7 @@ model_names = sorted(name for name in models.__dict__
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument(
     "--config-file",
-    default="./configs/bsd400_unet2_ps3_ns8_gpu1.py",
+    default="./configs/mayo_unet2.py",
     metavar="FILE",
     help="path to config file",
     type=str,

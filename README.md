@@ -58,6 +58,27 @@ The results in paper were obtained using 8 GPUs, you can obtain similar results 
 ### Low-dose CT Images
 The low-dose CT dataset can be obtained at [Low Dose CT Grand Challenge](https://www.aapm.org/grandchallenge/lowdosect/).
 
+Arrange the Mayo data like:
+
+    ├── datasets   
+        ├── Mayo                   
+            ├── L067                    
+            ├── L096
+            ...
+
+Run on 4 GPUs:
+
+Prepare train and test data files:
+
+```shell
+python tools/prepare_mayo.py --patient-folder L067 L096 L109 L143 L192 L286 L291 L310 --output-file ./datasets/Mayo/mayo_train.txt
+python tools/prepare_mayo.py --patient-folder L506 L333 --output-file ./datasets/Mayo/mayo_test.txt
+```
+Run on 4 GPUs:
+```shell
+python ./tools/train_dist.py --config-file ./configs/mayo_unet2.py
+```
+
 ### Spectral CT Images
 The photon-counting spectral micro-CT data can be obtained [here](https://drive.google.com/file/d/1UaS6YdPZ_M0opxpIaUXjbydNq1IlVDiG/view?usp=sharing).
 
