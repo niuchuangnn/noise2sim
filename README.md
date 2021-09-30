@@ -81,7 +81,13 @@ python ./tools/train_dist.py --config-file ./configs/mayo_unet2.py
 ```
 
 ### Spectral CT Images
-The photon-counting spectral micro-CT data can be obtained [here](https://drive.google.com/file/d/1UaS6YdPZ_M0opxpIaUXjbydNq1IlVDiG/view?usp=sharing).
+The photon-counting spectral micro-CT data can be obtained [here](https://drive.google.com/file/d/1UaS6YdPZ_M0opxpIaUXjbydNq1IlVDiG/view?usp=sharing),
+and put it under ```./datasets/```.
+
+Run on 4 GPUs:
+```shell
+python ./tools/train_dist.py --config-file ./configs/sct_unet2.py
+```
 
 ### Microscopy Images
 The microscopy image can be obtained [here](http://data.celltrackingchallenge.net/training-datasets/Fluo-N2DH-GOWT1.zip).
