@@ -34,19 +34,7 @@ data_train = dict(
     train=True,
 )
 
-data_test = dict(
-    type="sct",
-    data_file='./datasets/rec_spirSIRT6-10ch.mat',
-    crop_size=394,
-    range=[-300, 250],
-    ks=9,
-    th=40,
-    target_type='noise-clean',
-    random_flip=False,
-    ims_per_batch=1,
-    shuffle=False,
-    train=False,
-)
+data_test = None
 
 model = dict(
     type="common_denoiser",
