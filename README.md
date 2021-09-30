@@ -17,10 +17,9 @@ This general approach can be applied to many other fields by constructing the si
 ## Installation
 Assuming [Anaconda](https://www.anaconda.com/) with python 3.6, the required packages for this project can be installed as:
 ```shell script
-conda install pytorch==1.4.0 torchvision==0.5.0 cudatoolkit=10.1 -c pytorch
-conda install faiss-gpu cudatoolkit=10.0 -c pytorch
-conda install matplotlib
-conda install -c conda-forge python-lmdb tqdm imageio addict tensorboard opencv
+conda install pytorch==1.7.1 torchvision==0.8.2 torchaudio==0.7.2 cudatoolkit=11.0 -c pytorch  # install pytorch
+conda install -c pytorch faiss-gpu  # install faiss-gpu
+conda install -c conda-forge python-lmdb tqdm imageio addict opencv matplotlib
 ```
 Then, clone this repo
 ```shell script
