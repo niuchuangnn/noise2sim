@@ -1,9 +1,0 @@
-conda install pytorch==1.4.0 torchvision==0.5.0 cudatoolkit=10.1 -c pytorch
-conda install faiss-gpu cudatoolkit=10.0 -c pytorch
-conda install matplotlib
-conda install -c conda-forge python-lmdb
-conda install -c conda-forge tqdm
-conda install -c conda-forge imageio
-conda install -c conda-forge addict
-conda install -c conda-forge tensorboard
-conda install -c conda-forge opencv
