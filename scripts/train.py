@@ -1,7 +1,7 @@
 import argparse
 from noise2sim.tools.train import main
-import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = '1,2,3'
+# import os
+# os.environ["CUDA_VISIBLE_DEVICES"] = '0,1,2,3'
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 parser.add_argument(
