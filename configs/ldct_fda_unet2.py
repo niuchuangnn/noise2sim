@@ -1,47 +1,58 @@
-target_type = "random_noise-mapping"
-model_name = "bsd400_unet2_{}_ps3-ns8-gpu8".format(target_type)
-model_weight = None
-workers = 4
-epochs = 5000
+target_type = "noise-sim"
+model_type = "unet2"
+data_type = "ldct"
+train_file = "datasets/FDA/b60f/test.txt"
+test_file = "datasets/FDA/b60f/test.txt"
+ldct_id = 0
+
+epochs = 300
 start_epoch = 0
-batch_size = 256
-crop_size = 128
-num_channel = 1
-num_sim = 8
-num_select = 8
-print_freq = 10
+batch_size = 32
+crop_size = 512
+neighbor = 2
+ks = 7
+th = 40
+flag = "self"
+
+
+workers = 4
+print_freq = 100
 test_freq = 10
-resume = None
 world_size = 1
 rank = 0
-dist_url = 'tcp://localhost:10001'
+dist_url = 'tcp://localhost:10004'
 dist_backend = "nccl"
 seed = None
 gpu = None
 multiprocessing_distributed = True
 
+model_name = "{}_{}_{}_fda_{}".format(data_type, model_type, target_type, flag)
+model_weight = 'results/{}/checkpoint.pth.tar'.format(model_name)
+if start_epoch > 0:
+    resume = "results/{}/checkpoint_{:04d}.pth.tar".format(model_name, start_epoch)
+else:
+    resume = None
 
 data_train = dict(
-    type="lmdb",
-    lmdb_file="./datasets/bsd400_gaussian25_ps3_ns8_lmdb",
-    meta_info_file="./datasets/bsd400_gaussian25_ps3_ns8_lmdb_meta_info.pkl",
+    type=data_type,
+    data_file=train_file,
     crop_size=crop_size,
+    neighbor=neighbor,
+    hu_range=[-160, 240],
+    ks=ks,
+    th=th,
+    ldct_id=ldct_id,
     target_type=target_type,
     random_flip=True,
-    prune_dataset=None,
-    num_sim=num_sim,
-    num_select=num_select,
-    dtype="float32",
     ims_per_batch=batch_size,
     shuffle=True,
     train=True,
 )
 
 data_test = dict(
-    type="bsd_npy",
-    data_file='./datasets/bsd68_gaussian25.npy',
-    target_file='./datasets/bsd68_groundtruth.npy',
-    norm=[0.0, 255.0],
+    type='ldctnpy',
+    data_file="./datasets/FDA/b60f/LDCT.npy",
+    target_file="./datasets/FDA/b60f/N2S-reference.npy",
     shuffle=False,
     ims_per_batch=1,
     train=False,
@@ -50,7 +61,7 @@ data_test = dict(
 model = dict(
     type="common_denoiser",
     base_net=dict(
-        type="unet2",
+        type=model_type,
         n_channels=1,
         n_classes=1,
         activation_type="relu",
@@ -61,7 +72,7 @@ model = dict(
 
     denoiser_head=dict(
         loss_type="l2",
-        loss_weight={"l2": 1},
+        loss_weight={"l2": 10},
     ),
 
     weight=None,

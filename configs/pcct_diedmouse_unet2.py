@@ -1,16 +1,14 @@
-target_type = "random_noise-mapping"
-model_name = "bsd400_unet2_{}_ps3-ns8-gpu8".format(target_type)
-model_weight = None
+target_type = "noise-sim"
+model_name = "pcct_unet2_{}_diedmouse".format(target_type)
+model_weight = 'results/pcct_unet2_noise-sim_diedmouse/checkpoint.pth.tar'
 workers = 4
-epochs = 5000
+epochs = 300
 start_epoch = 0
-batch_size = 256
-crop_size = 128
+batch_size = 32
+crop_size = 256
 num_channel = 1
-num_sim = 8
-num_select = 8
 print_freq = 10
-test_freq = 10
+test_freq = 20
 resume = None
 world_size = 1
 rank = 0
@@ -22,37 +20,29 @@ multiprocessing_distributed = True
 
 
 data_train = dict(
-    type="lmdb",
-    lmdb_file="./datasets/bsd400_gaussian25_ps3_ns8_lmdb",
-    meta_info_file="./datasets/bsd400_gaussian25_ps3_ns8_lmdb_meta_info.pkl",
+    type="pcct",
+    data_file='./datasets/diedmouse/NDCT.mat',
     crop_size=crop_size,
+    hu_range=[-300, 250],
+    slice_crop=[50, 600],
+    neighbor=5,
+    ks=9,
+    th=40,
     target_type=target_type,
     random_flip=True,
-    prune_dataset=None,
-    num_sim=num_sim,
-    num_select=num_select,
-    dtype="float32",
     ims_per_batch=batch_size,
     shuffle=True,
     train=True,
 )
 
-data_test = dict(
-    type="bsd_npy",
-    data_file='./datasets/bsd68_gaussian25.npy',
-    target_file='./datasets/bsd68_groundtruth.npy',
-    norm=[0.0, 255.0],
-    shuffle=False,
-    ims_per_batch=1,
-    train=False,
-)
+data_test = None
 
 model = dict(
     type="common_denoiser",
     base_net=dict(
         type="unet2",
-        n_channels=1,
-        n_classes=1,
+        n_channels=5,
+        n_classes=5,
         activation_type="relu",
         bilinear=False,
         residual=True,
@@ -61,7 +51,7 @@ model = dict(
 
     denoiser_head=dict(
         loss_type="l2",
-        loss_weight={"l2": 1},
+        loss_weight={"l2": 10},
     ),
 
     weight=None,

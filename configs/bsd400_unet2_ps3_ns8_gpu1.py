@@ -1,4 +1,4 @@
-target_type = "random_noise-mapping"
+target_type = "noise-sim"
 model_name = "bsd400_unet2_{}_ps3-ns8-gpu1".format(target_type)
 model_weight = None
 workers = 4
@@ -31,8 +31,6 @@ data_train = dict(
     prune_dataset=None,
     num_sim=num_sim,
     num_select=num_select,
-    load_data_all=False,
-    incorporate_noise=True,
     dtype="float32",
     ims_per_batch=batch_size,
     shuffle=True,
@@ -62,7 +60,6 @@ model = dict(
     ),
 
     denoiser_head=dict(
-        head_type="supervise",
         loss_type="l2",
         loss_weight={"l2": 1},
     ),
